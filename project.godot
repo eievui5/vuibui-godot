@@ -57,7 +57,7 @@ _global_script_class_icons={
 [application]
 
 config/name="vuibui-godot"
-run/main_scene="res://src/Main.tscn"
+run/main_scene="res://src/main.tscn"
 config/icon="res://gfx/icon.png"
 
 [autoload]

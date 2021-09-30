@@ -2,7 +2,5 @@
 
 [ext_resource path="res://src/main.gd" type="Script" id=1]
 
-[node name="Main" type="CanvasLayer"]
-layer = 0
-follow_viewport_enable = true
+[node name="Main" type="Node"]
 script = ExtResource( 1 )

@@ -26,7 +26,7 @@ func error(line: String) -> void:
 
 func debug(line: String) -> void:
 	if debug_enabled:
-		output.bbcode_text += "\n [color=purple]$ Debug: [/color]" + line
+		output.bbcode_text += "\n [color=fuchsia]$ Debug: [/color]" + line
 
 func toggle_command_input() -> void:
 	command.text = ""
