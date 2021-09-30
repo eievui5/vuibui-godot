@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Command
+
+func _execute(_arguments: Array) -> void:
+	Console.debug_enabled = not Console.debug_enabled
+	Console.print(\"Debug output \" + (\"enabled.\" if Console.debug_enabled else \"disabled.\"))
+"
+
+[resource]
+script = SubResource( 1 )
+arguments = [ 0 ]
+description = "Toggle debug output."

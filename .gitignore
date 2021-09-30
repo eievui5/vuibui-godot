@@ -1,0 +1,12 @@
+# System files
+*.DS_Store
+
+# Godot
+.import/
+export.cfg
+export_presets.cfg
+*.translation
+
+# Mono
+.mono/
+data_*/
