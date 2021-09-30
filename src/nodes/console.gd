@@ -56,20 +56,17 @@ func process_command(input: String) -> void:
 
 	# Match first token
 	var main_token: String = tokens.pop_front()
-	var command_found: bool = false
-	for console_command in ResourceManager.command_list:
-		if main_token == console_command.name:
-			command_found = true
-			var valid: bool = false
-			for argc in console_command.arguments:
-				if argc == tokens.size():
-					valid = true
-			if valid:
-				console_command._execute(tokens)
-				break
-			else:
-				Console.error("Invalid number of arguments for command \"" + main_token + "\".")
-	if not command_found:
+	var console_command: Command = ResourceManager.get_command(main_token)
+	if console_command == null:
 		Console.error("Command \"" + main_token + "\" not found.")
+	else:
+		var valid: bool = false
+		for argc in console_command.arguments:
+			if argc == tokens.size():
+				valid = true
+		if valid:
+			console_command._execute(tokens)
+		else:
+			Console.error("Invalid number of arguments for command \"" + main_token + "\".")
 
 	toggle_command_input()

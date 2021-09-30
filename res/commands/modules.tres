@@ -1,0 +1,19 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Command
+
+func _execute(_arguments: Array) -> void:
+	var output: String = \"Active Modules:\\n\"
+	for module in ResourceManager.active_modules:
+		output += module.namespace
+		if ResourceManager.master_module == module.namespace:
+			output += \"[color=red] - Master[/color]\"
+		output += \"\\n\"
+	Console.print(output)
+"
+
+[resource]
+script = SubResource( 1 )
+arguments = [ 0 ]
+description = "List all active modules."

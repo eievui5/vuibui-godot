@@ -4,8 +4,17 @@
 script/source = "extends Command
 
 func _execute(_arguments: Array) -> void:
+	var target_module: String 
+	if _arguments.size() == 0:
+		target_module = ResourceManager.master_module
+	else:
+		target_module = _arguments[0]
+	var module = ResourceManager.get_module(target_module)
+	if module == null:
+		Console.error(\"Namespace \\\"\" + target_module + \"\\\" not found\" )
+		return
 	var output: String = \"Command Help:\"
-	for command in ResourceManager.command_list:
+	for command in module.command_list:
 		if not command.description.empty():
 			output += \"\\n[color=lime]\" + command.name + \"[/color] - \" + command.description
 	Console.print(output)
@@ -13,5 +22,5 @@ func _execute(_arguments: Array) -> void:
 
 [resource]
 script = SubResource( 1 )
-arguments = [ 0 ]
+arguments = [ 0, 1 ]
 description = "Display this message."
