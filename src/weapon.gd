@@ -1,9 +1,6 @@
 class_name Weapon
 extends Node2D
 
-# This signal is a capsule to combine all child areas' signals into a single,
-# root-level signal.
-# warning-ignore:unused_signal
 signal contact(body)
 
 var animation_player: AnimationPlayer

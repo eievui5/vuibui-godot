@@ -14,6 +14,7 @@ func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("console_command"):
 		yield(get_tree(), "idle_frame")
 		toggle_command_input()
+
 	if Input.is_action_just_pressed("ui_up") and command.has_focus():
 		if history.size():
 			command.text = history.pop_back()
@@ -31,8 +32,7 @@ func debug(line: String) -> void:
 func toggle_command_input() -> void:
 	command.text = ""
 	command.visible = not command.visible
-	for player in get_tree().get_nodes_in_group(GroupConstants.PLAYER_GROUP):
-		player.disable_input = not player.disable_input
+	Worldspace.active_player.disable_input = not Worldspace.active_player.disable_input
 	if command.visible:
 		command.grab_focus()
 
@@ -43,6 +43,7 @@ func process_command(input: String) -> void:
 		history.append(input)
 
 	output.bbcode_text += "\n [color=blue]~ [/color]" + input
+
 	# Parse the input string.
 	# If there is only one token.
 	var tokens: Array = []
@@ -57,9 +58,8 @@ func process_command(input: String) -> void:
 	# Match first token
 	var main_token: String = tokens.pop_front()
 	var console_command: Command = ResourceManager.get_command(main_token)
-	if console_command == null:
-		Console.error("Command \"" + main_token + "\" not found.")
-	else:
+
+	if console_command != null:
 		var valid: bool = false
 		for argc in console_command.arguments:
 			if argc == tokens.size():

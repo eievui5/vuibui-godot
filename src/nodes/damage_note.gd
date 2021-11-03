@@ -5,6 +5,7 @@ const LIFETIME: float = 1.0
 const SCALE: float = 0.7
 const SCALETIME: float = 0.1
 
+# The damage that caused this note. Determines text and effects.
 var damage: Damage
 var timer: float = 0.0
 
@@ -14,6 +15,7 @@ func _init(_position: Vector2, _damage: Damage) -> void:
 	scale = Vector2.ZERO
 
 func _ready() -> void:
+	# Construct a label for the damage magnitude.
 	var label := Label.new()
 	label.align = Label.ALIGN_CENTER
 	label.valign = Label.VALIGN_CENTER
@@ -24,10 +26,13 @@ func _ready() -> void:
 	add_child(label)
 
 func _process(delta: float) -> void:
+	# Move and decay over time.
 	if timer < SCALETIME:
 		scale = scale.move_toward(Vector2(SCALE, SCALE), SCALE / SCALETIME * delta)
+
 	position.y -= delta * 5.0
 	timer += delta
+
 	if timer > LIFETIME - SCALETIME:
 		scale = scale.move_toward(Vector2.ZERO, SCALE / SCALETIME * delta)
 	if timer >= LIFETIME:

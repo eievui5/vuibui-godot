@@ -4,14 +4,13 @@
 script/source = "extends Command
 
 func _execute(_arguments: Array) -> void:
-	for entity in ResourceManager.entity_list:
-		if _arguments[0] == entity.get_file().replace(
-				\".\" + entity.get_extension(), \"\"):
-			var new_entity: Entity = load(entity).instance()
-			Console.get_tree().root.add_child(new_entity)
-			Console.print(\"Summoned \" + _arguments[0] + \".\")
-			return
-	Console.error(\"Entity \\\"\" + _arguments[0] + \"\\\" not found.\")
+	var new_entity: Entity = Worldspace.spawn_entity(_arguments[0])
+	if new_entity:
+		Console.print(\"Summoned \" + _arguments[0] + \".\")
+	else:
+		Console.error(\"Entity \\\"\" + _arguments[0] + \"\\\" not found.\")
+	if Worldspace.active_player != null:
+		new_entity.position = Worldspace.active_player.global_position + Vector2(randf(), randf()) * 32.0
 "
 
 [resource]

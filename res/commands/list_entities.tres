@@ -5,7 +5,7 @@ script/source = "extends Command
 
 func _execute(_arguments: Array) -> void:
 	var output: String = \"Currently active entities:\\n\"
-	for entity in Console.get_tree().get_nodes_in_group(GroupConstants.ENTITY_GROUP):
+	for entity in Worldspace.active_entities:
 		output += entity.name + \"\\n\"
 	Console.print(output)
 "

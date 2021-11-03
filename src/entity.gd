@@ -11,16 +11,21 @@ var knockback: Vector2
 var velocity: Vector2
 
 func _ready() -> void:
+	# Configure collision
 	collision_layer = CollisionConstants.ENTITY
 	collision_mask = CollisionConstants.WORLD
+
+	# Configure detection
 	DetectionArea.collision_layer = 0
 	DetectionArea.collision_mask = CollisionConstants.ENTITY
+
+	# Set the detection radius.
 	var detection_shape := CollisionShape2D.new()
 	detection_shape.shape = CircleShape2D.new()
 	detection_shape.shape.radius = detection_radius
+
 	add_child(DetectionArea)
 	DetectionArea.add_child(detection_shape)
-	add_to_group(GroupConstants.ENTITY_GROUP)
 
 func _logic_process(delta: float) -> void:
 	knockback = knockback.move_toward(Vector2.ZERO, delta * 600.0)
@@ -28,17 +33,18 @@ func _logic_process(delta: float) -> void:
 
 func _detect_entities() -> void:
 	var nearby_entities: Array = DetectionArea.get_overlapping_bodies()
+
 	nearby_entities.erase(self)
 	detected_entities = nearby_entities
 
 func take_damage(damage: Damage) -> void:
 	var note := DamageNote.new(global_position, damage)
+
 	get_tree().root.add_child(note)
 	health -= damage.magnitude
 	if damage.source:
-		knockback = (
-			global_position - damage.source.global_position
-		).normalized() * 200.0
+		knockback = (global_position - damage.source.global_position).normalized() * 200.0
+	# TODO: else, do knockback in the direction opposite of where we are facing.
 	if health <= 0:
 		death()
 

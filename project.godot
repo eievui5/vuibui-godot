@@ -34,15 +34,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/entity.gd"
 }, {
-"base": "Reference",
-"class": "GroupConstants",
+"base": "Resource",
+"class": "InvItem",
 "language": "GDScript",
-"path": "res://src/constants/group_constants.gd"
+"path": "res://src/items/invitem.gd"
 }, {
 "base": "Node2D",
 "class": "Weapon",
 "language": "GDScript",
 "path": "res://src/weapon.gd"
+}, {
+"base": "InvItem",
+"class": "WeaponItem",
+"language": "GDScript",
+"path": "res://src/items/weapon_item.gd"
 } ]
 _global_script_class_icons={
 "CollisionConstants": "",
@@ -50,24 +55,53 @@ _global_script_class_icons={
 "Damage": "",
 "DamageNote": "",
 "Entity": "",
-"GroupConstants": "",
-"Weapon": ""
+"InvItem": "",
+"Weapon": "",
+"WeaponItem": ""
 }
 
 [application]
 
 config/name="vuibui-godot"
 run/main_scene="res://src/main.tscn"
-config/icon="res://gfx/icon.png"
+config/icon="res://res/gfx/icon.png"
 
 [autoload]
 
 Console="*res://src/nodes/console.tscn"
 ResourceManager="*res://src/resource_manager.gd"
+Worldspace="*res://src/worldspace.tscn"
 
 [debug]
 
 gdscript/warnings/return_value_discarded=false
+
+[editor]
+
+search_in_file_extensions=PoolStringArray( "gd", "gdshader", "shader", "txt", "cfg" )
+
+[importer_defaults]
+
+texture={
+"compress/bptc_ldr": 0,
+"compress/hdr_mode": 0,
+"compress/lossy_quality": 0.7,
+"compress/mode": 0,
+"compress/normal_map": 0,
+"detect_3d": true,
+"flags/anisotropic": false,
+"flags/filter": false,
+"flags/mipmaps": false,
+"flags/repeat": 0,
+"flags/srgb": 2,
+"process/HDR_as_SRGB": false,
+"process/fix_alpha_border": true,
+"process/invert_color": false,
+"process/premult_alpha": false,
+"size_limit": 0,
+"stream": false,
+"svg/scale": 1.0
+}
 
 [input]
 
